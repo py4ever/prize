@@ -13,6 +13,10 @@ from random import *
 from tkinter import *
 
 import tkinter.messagebox as mb
+from tkinter import ttk
+
+from renxianqi.localdata_loader import load_data_options
+
 from prize.ui.menu_setting import *
 
 BG_COLOR = 'skyblue'
@@ -36,20 +40,20 @@ def render_labels_on_panel(paned_win: PanedWindow, root: Tk):
     all_items = PRIZE_META['items']
     all_items.clear()
     children = paned_win.children
-    #print("existing children:", len(children))
+    # print("existing children:", len(children))
     for item in children:
         paned_win.remove(item)
     children = paned_win.children
-    #print("cleaned children:", len(children))
+    # print("cleaned children:", len(children))
     children.clear()
-    #print("cleaned children:", len(children))
+    # print("cleaned children:", len(children))
     paned_win = PanedWindow(orient=VERTICAL, height=50, background=BG_COLOR)
     paned_win.grid(row=4, column=0, sticky=NSEW, columnspan=2)
     people = PRIZE_META['values']
     num = len(people)
     row, col = figure_table(num)
-    #print("num:", num)
-    #print("row %s , col %s" % (row, col))
+    # print("num:", num)
+    # print("row %s , col %s" % (row, col))
     row_id = 0
     col_id = 0
     counter = 0
@@ -87,14 +91,14 @@ def focus_item(rand: int, total: int, button: Button):
             item.configure(background='skyblue')
 
     def handle_item(item: Label):
+        item.focus()
+        item.configure(background='red')
+        item.update()
         try:
             print("winner is:", item.cget('text'))
             mb.showinfo(POPUP_TITLE, "恭喜幸运个体【" + item.cget('text') + "】！")
         except Exception as err:
             print("弹出信息失败，错误为：%s" % str(err))
-        item.focus()
-        item.configure(background='red')
-        item.update()
 
     try:
         each = all_items[rand]
@@ -129,14 +133,40 @@ class ChouJiang(object):
         render_labels_on_panel(paned_win, self.root)
         # 文本展示框
         self.log_text = Text(self.root, width=85, height=20)
+
+        def load_data_per_opt():
+            opt = self.user_opt.get()
+            print("opt is ", opt)
+
+        self.group = LabelFrame(self.root, text='提取ID卡片方式？', padx=1, pady=1)
+        OPTS = [
+            ("按行取ID", 0),
+            ("按'ID:评论'提取ID", 1),
+            ("按'ID：评论'提取ID", 2)]
+        self.user_opt = IntVar()
+        index = 0
+        for opt, num in OPTS:
+            b = Radiobutton(self.group, text=opt, variable=self.user_opt, value=num, command=load_data_per_opt)
+            b.grid(row=0, column=index)
+            index += 1
         self.log_text.insert(0.0, "<这里黏贴参与活动人员>")
+        # clock_label = Label(text=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+        # def update_clock():
+        #     currentTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        #     clock_label.config(text=currentTime)
+        #     self.root.update()
+        #     clock_label.after(1000, update_clock)
+        #
+        # clock_label.after(1000, update_clock)
         # 布局
-        self.log_label.grid(row=0, column=0, columnspan=2, sticky=W + E)
-        self.log_text.grid(row=1, column=0, columnspan=2, sticky=W + E)
-        self.generate_btn.grid(row=2, column=0, sticky=W + E)
-        self.process_btn.grid(row=2, column=1, sticky=W + E)
-        self.data_label.grid(row=3, column=0, sticky=NSEW, columnspan=2)
-        self.paned_win.grid(row=4, column=0, sticky=NSEW, columnspan=2)
+        self.log_label.grid(row=0, column=0, columnspan=2,sticky=W + E)
+        #clock_label.grid(row=0, column=1, sticky=W + E)
+        self.group.grid(row=1, column=0, columnspan=3, sticky=W + E)
+        self.log_text.grid(row=2, column=0, columnspan=2, sticky=W + E)
+        self.generate_btn.grid(row=3, column=0, sticky=W + E)
+        self.process_btn.grid(row=3, column=1, sticky=W + E)
+        self.data_label.grid(row=4, column=0, sticky=NSEW, columnspan=2)
+        self.paned_win.grid(row=5, column=0, sticky=NSEW, columnspan=2)
 
     def start_prize_picker(self):
         self.process_btn.configure(state=DISABLED)
@@ -172,10 +202,20 @@ class ChouJiang(object):
             dataset = set(lines)
             print("number of unique lines:", len(dataset))
             colspacings = []
-            for line in dataset:
-                if ':' in line:
-                    id = line[:line.index(':')]
-                    colspacings.append(id)
+            id_opt = self.user_opt.get()
+            if id_opt == 0:
+                for line in dataset:
+                    colspacings.append(line.strip())
+            elif id_opt == 1:
+                for line in dataset:
+                    if ':' in line:
+                        id = line[:line.index(':')]
+                        colspacings.append(id)
+            elif id_opt == 2:
+                for line in dataset:
+                    if '：'in line:
+                        id = line[:line.index('：')]
+                        colspacings.append(id)
             print("colspacings:", colspacings)
             PRIZE_META['values'] = colspacings
             render_labels_on_panel(self.paned_win, self.root)
@@ -205,6 +245,7 @@ def app_start():
     menubar = construct_menu(root)
     root.config(menu=menubar)
     prize_ui = ChouJiang(root)
+
     prize_ui.setup_root_win()
     # 进入事件循环，保持窗口运行
     root.mainloop()
