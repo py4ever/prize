@@ -7,7 +7,7 @@
 # @File : pip_trigger.py
 # @Project : renxianqi(aka qingdian)
 
-from renxianqi.setting import NAME
+from prize.setting import NAME
 
 
 def install_win32():
