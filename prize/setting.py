@@ -11,5 +11,5 @@ import os
 # Name should didn't be changed as it need to align with pypi
 NAME = "prize"
 # Change the version everytime when a upload to pypi to issue a new version
-VERSION = "0.0.4"
+VERSION = "1.0.0"
 
