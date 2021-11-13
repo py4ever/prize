@@ -119,17 +119,17 @@ def schedule_picker():
     def set_pick_time():
         hour = hour_text.get(1.0, END).strip()
         if not re.search("(^[0-1]{0,1}[0-9]$)|(^[2][0-3]$)", hour):
-            print("违法输入：", hour)
+            print("Illegal input for hour：", hour)
             mb.showerror(POPUP_TITLE, "小时必须在0到23之内")
             return
         min = min_text.get(1.0, END).strip()
         if not re.search("^[0-5]{0,1}[0-9]$", min):
-            print("违法输入：", min)
+            print("Illegal input for min：", min)
             mb.showerror(POPUP_TITLE, "分钟必须在0到59之内")
             return
         sec = sec_text.get(1.0, END).strip()
         if not re.search("^[0-5]{0,1}[0-9]$", sec):
-            print("违法输入：", sec)
+            print("Illegal input for second：", sec)
             mb.showerror(POPUP_TITLE, "秒数必须在0到59之内")
             return
         PRIZE_META['pickOnTime'] = padding0(hour) + ":" + padding0(min) + ":" + padding0(sec)
@@ -369,7 +369,7 @@ class ChouJiang(object):
                     if '：' in line:
                         id = line[:line.index('：')]
                         colspacings.append(id)
-            #print("colspacings:", colspacings)
+            # print("colspacings:", colspacings)
             PRIZE_META['values'] = colspacings
             render_labels_on_panel(self.paned_win, self.root)
         finally:

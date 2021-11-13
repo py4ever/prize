@@ -17,9 +17,7 @@ def app_start():
 
 
 def main():
-    t = threading.Thread(target=app.app_start)
-    t.daemon = True
-    t.start()
+    app.app_start()
 
 def demo():
     hello = "hello prize"
