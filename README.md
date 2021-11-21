@@ -17,6 +17,7 @@ Powered by [pypi-seed](https://pypi.org/project/pypi-seed/)
 直接抽取到幸运名单，仅支持抽取一个幸运个体获得奖品。
 3）支持定时抽奖功能，进入【更多配置】-> 【定时抽奖】进行配置
 4）如果有多个奖项，可以多次点击【重新抽奖】
+5）支持窗口自适应，动态根据抽奖人数自动调节组件大小。
 有其他改进建议可以找qq：【Python全栈技术学习交流】：https://jq.qq.com/?_wv=1027&k=ISjeG32x 
 
 # More Info

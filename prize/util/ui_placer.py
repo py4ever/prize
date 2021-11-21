@@ -27,8 +27,10 @@ def left(win: Misc, base_win: Tk, width, height):
     """
     base_x = base_win.winfo_pointerx()
     base_y = base_win.winfo_pointery()
-    x = base_x - math.ceil(width / 2)
-    y = base_y + math.ceil(height / 2)
+    x = base_x - width
+    if x < 0:
+        x = 0
+    y = base_y
     win.geometry("%dx%d+%d+%d" % (width, height, x, y))
 
 
@@ -39,6 +41,8 @@ def right(win: Misc, base_win: Tk, width, height):
     base_x = base_win.winfo_pointerx()
     base_y = base_win.winfo_pointery()
     delta_width = base_win.winfo_width()
-    x = base_x + delta_width + math.ceil(width / 2)
-    y = base_y + math.ceil(height / 2)
+    x = base_x + delta_width
+    if x >= base_win.winfo_screenwidth():
+        x = base_win.winfo_screenwidth() - width
+    y = base_y
     win.geometry("%dx%d+%d+%d" % (width, height, x, y))

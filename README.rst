@@ -9,6 +9,10 @@ Support scheduling prize picker and for multiple prizes, it can be achieved by c
 
 支持定时随机抽奖，多个奖项可以点击多次。
 
+Support the adaptive UI rendering per resizing .
+
+支持窗口自适应，动态根据抽奖人数自动调节组件大小。
+
 Support multiple inputs like (line-by-line, lines[id:comment] string etc)
 
 支持多种格式生成抽奖个体卡片, 比如按行号，id:comment行格式提取id生成个体卡片。
@@ -26,7 +30,7 @@ Installation / 安装
 More Info
 --------------------------
 
-Author levin
+Author levin （雷学委）
 
 .. _`pypi`: https://pypi.org/
 .. _`pypi-seed`: https://pypi.org/project/pypi-seed/
