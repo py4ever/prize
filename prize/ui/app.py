@@ -29,17 +29,6 @@ PRIZE_META = {"values": all_people, "items": [], 'pickOnTime': -1, "terminated":
 from tkinter.simpledialog import askstring
 
 
-def schedule_picker1():
-    current = datetime.datetime.now()
-    current_time = str(current.hour) + ":" + str(current.minute)
-    res = askstring("定时抽奖 " + current_time, "输入时刻 00:00 ~ 23:59 ：", initialvalue="22:00")
-    if res < 0 or res > 24:
-        mb.showerror(POPUP_TITLE, "超出时间范围:[00:00 ~ 23:59]")
-        return
-    print("设置定时:", res)
-    PRIZE_META['pickOnTime'] = res
-
-
 def schedule_picker(root: Tk = None):
     if PRIZE_META['pickerWinOpen']:
         mb.showwarning(POPUP_TITLE, "请勿重复操作，已打开定时窗口！")
@@ -200,10 +189,6 @@ def focus_item(rand: int, total: int, trigger_button: Button, other_button: Butt
         # print("start flashing")
         data_list = [x for x in range(total)]
         shuffle(data_list)
-        # for item in all_items:
-        #     item.configure(background='red')
-        #     time.sleep(0.1)
-        #     item.configure(background='skyblue')
         for x in data_list:
             item = all_items[x]
             item.configure(background='red')
@@ -282,14 +267,6 @@ class ChouJiang(object):
             b.grid(row=0, column=index)
             index += 1
         self.log_text.insert(0.0, "<这里黏贴参与活动人员>")
-        # clock_label = Label(text=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-        # def update_clock():
-        #     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        #     clock_label.config(text=current_time)
-        #     self.root.update()
-        #     clock_label.after(1000, update_clock)
-        #
-        # clock_label.after(1000, update_clock)
         # 布局
         self.log_label.grid(row=0, column=0, columnspan=2, sticky=NSEW)
         # clock_label.grid(row=0, column=1, sticky=W + E)
