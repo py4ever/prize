@@ -16,7 +16,7 @@ setup(name='prize',  ## 包名
       author='levin', ##作者
       author_email='levinmhliu@gmail.com',
       url='https://blog.csdn.net/geeklevin', ##这个库的介绍链接，也可以库的开发者网站
-      install_requires=["renxianqi"],
+      install_requires=["renxianqi","ttkbootstrap"],
       license='Apache License 2.0', ##许可证类型
       packages=find_packages(),
       platforms=["all"],
@@ -31,8 +31,6 @@ setup(name='prize',  ## 包名
           'Operating System :: OS Independent',
           'Natural Language :: Chinese (Simplified)',
           'Programming Language :: Python',
-          'Programming Language :: Python :: 2',
-          'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',

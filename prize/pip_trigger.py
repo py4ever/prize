@@ -5,7 +5,7 @@
 # @CSDN/Juejin/Wechat: 雷学委
 # @XueWeiTag: CodingDemo
 # @File : pip_trigger.py
-# @Project : renxianqi(aka qingdian)
+# @Project : prize(aka choujiang)
 
 from prize.setting import NAME
 
