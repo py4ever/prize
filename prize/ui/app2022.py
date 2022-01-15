@@ -417,6 +417,7 @@ class ChouJiang(object):
                 return
             # print("comment:", comment)
             lines = comment.split("\n")
+            lines = set(l if '回复:' not in l else '' for l in lines)
             # print("number of lines:", len(lines))
             dataset = set(lines)
             # print("number of unique lines:", len(dataset))
